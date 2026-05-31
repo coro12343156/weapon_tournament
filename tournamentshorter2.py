@@ -41,6 +41,7 @@ from typing import Union
 from string import Template
 import unicodedata
 from copy import deepcopy
+import json
 
 def sign(x):
 	if x < 0: return -1
@@ -60,7 +61,7 @@ def draw(text, x=-1, y=0, size=64, tremor=0, color=[255, 255, 255]):
 		letter_x = x
 	letter_y = y - 12
 	green_flag = 0
-	ffont = pygame.font.Font(os.path.join(game_folder, "x12y16pxMaruMonica.ttf"), size)
+	ffont = pygame.font.Font(os.path.join(font_folder, "x12y16pxMaruMonica.ttf"), size)
 	for i, s in enumerate(text):
 		if s != "!":
 			s_render = ffont.render(s, True, color)
@@ -1846,23 +1847,24 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Battle Royale")
 clock = pygame.time.Clock()
 
+### 画像、フォント、音声の変数宣言
 from source import *
 
 pygame.display.set_icon(icon)
 beacon.set_colorkey((255, 255, 255))
 
+### プレイヤーの名前と色データの取得
+with open("player_data.json", mode="r", encoding="utf-8") as f:
+	player_data = json.load(f)
+
 # Step1_1
 
 running = True
-name = ["Strs2","Sword","Axe","Book","Lava","Spear","Darkness","Timer","Unarmed","Mace","Trident","Tropical Fish","Chain","Brick","Duplicator","Cod","Bow","Crossbow","TNT","Pickaxe","Anvil","Minecart","Barrier","Lead","Beacon","Dye","Potion","Hoe","Arrow","Bundle","Nether Star","Pufferfish","Elytra","Egg"]
+name = list(player_data.keys())
 # Step2_1
-colors= [(255,200,255), (255, 90, 90), (200, 75, 45), (140, 200, 130), (255, 120, 65), (255, 215, 120), (135, 150, 180), (255, 225, 80)\
-		   , (190, 190, 190), (240, 90, 160), (125, 225, 255), (255, 160, 65), (190, 185, 150), (255, 180, 160), (200, 140, 255)\
-		   , (240, 210, 145), (200, 225, 145), (150, 190, 90), (230, 120, 90), (70, 195, 255), (155, 170, 195), (220, 170, 135)\
-		   , (255, 85, 130), (255, 150, 70), (180, 255, 255), (230, 255, 255), (255, 150, 230), (200, 140, 60)\
-		   , (230, 255, 215), (240, 130, 0), (220, 255, 235), (160, 70, 255), (50, 100, 255), (240, 225, 140)]
+colors = [tuple(player_data[player_name]["color"]) for player_name in name]
 
-FIGHTERS = 32
+FIGHTERS = len(name)
 # Step4_1
 
 mark = 0
