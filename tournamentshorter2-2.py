@@ -71,6 +71,11 @@ def draw(text, x=-1, y=0, size=64, tremor=0, color=[255, 255, 255]):
 		elif s == "!":
 			green_flag = 1 - green_flag
 
+#####################
+# クラス定義
+#####################
+
+
 class Player:
 	def __init__(self, x, y, color, type=3, team=-1, super=0, hp=100, small=0, mul=1, mul2=1):
 		self.x = x
@@ -873,6 +878,7 @@ class Player:
 		i.x += i.vx
 		i.y += i.vy
 
+	# 攻撃
 	def attack(self, i):
 		global particles, players, colors, blocks
 		if self.stun or i.joust > 0 or i.falling > 0: return
@@ -1287,8 +1293,6 @@ class Player:
 			self.multi += 1
 			particles += [Particle(i.x + random.gauss(0, 5), i.y + random.gauss(0, 5), i.vx * 2 + random.gauss(0, 2), i.vy * 2 + random.gauss(0, 2), random.randint(5, 16), 1, -1) for _ in range(50)]
 
-# Step3_2
-
 	def draw(self):
 		global l, particles
 
@@ -1558,7 +1562,6 @@ class Player:
 			rect = tegg.get_rect(center=(36, 36) + pygame.math.Vector2(44, 44).rotate(-angle) + pygame.math.Vector2(self.x, self.y) - pygame.math.Vector2(36, 36))
 			screen.blit(tegg, rect)
 
-# Step3_3
 
 class Arrow:
 	def __init__(self, x, y, vx, vy, dmg, owner, team, bounce=0, atype=0):
@@ -1826,6 +1829,9 @@ class Particle:
 	def draw(self):
 		pygame.draw.rect(screen, (255 - 255*self.l, 255 - 255*self.l, 255 - 255*self.l), (self.x - self.size/2, self.y - self.size/2, self.size, self.size))
 
+
+#####################
+
 width = 800
 height = 800
 fps = 75
@@ -1878,8 +1884,6 @@ winnum = [0] * (FIGHTERS + 1)
 
 random.shuffle(tournament)
 
-#tournament.pop(-1)
-
 # Step4_2
 # tournament = [?, ?]
 perma = deepcopy(tournament)
@@ -1926,24 +1930,12 @@ o1 = 1
 
 players = [Player(width/2 - ROOMSIZE/2.5, height/2, colors[tournament[0]], tournament[0], 1), Player(width/2 + ROOMSIZE/2.5, height/2, colors[tournament[1]], tournament[1], 2)]
 
-#players = [Player(width/2 - ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (255, 255, 140), 0), Player(width/2 + ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (140, 140, 255), 16)]
-
-#players = [Player(width/2 - ROOMSIZE/2.5 + ROOMSIZE/2.5/2.4*(n%6), height/2 - ROOMSIZE/2.5 + ROOMSIZE/2.5/2.4*(n//6), colors[i], i) for n, i in enumerate(tournament)]
 
 o1 = 1
 o2 = 7
 o3 = 16
 o4 = 17
 
-#players = [Player(width/2 - ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (255, 255, 140), o1), Player(width/2 + ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (140, 140, 255), o1),Player(width/2 - ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (255, 140, 140), o1), Player(width/2 + ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (140, 255, 140), o1)]
-#players = [Player(width/2 - ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (255, 255, 140), o1, 1), Player(width/2 - ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (255, 255, 140), o2, 1),Player(width/2 + ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (140, 140, 255), o3, 2), Player(width/2 + ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (140, 140, 255), o4, 2)]
-
-#players = [Player(width/2 - ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (255, 255, 140), o1), Player(width/2 + ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (140, 140, 255), o1),Player(width/2 - ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (255, 140, 140), o1), Player(width/2 + ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (140, 255, 140), o1), Player(width/2 - ROOMSIZE/5, height/2 - ROOMSIZE/5, (140, 140, 140), o1), Player(width/2 + ROOMSIZE/5, height/2 - ROOMSIZE/5, (255, 140, 255), o1)]
-#players = [Player(width/2 - ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (255, 255, 140), 31, -1, 1), Player(width/2 + ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (140, 140, 255), o1, 1),Player(width/2 - ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (255, 140, 140), o1, 1), Player(width/2 + ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (140, 255, 140), o1, 1), Player(width/2 - ROOMSIZE/5, height/2 - ROOMSIZE/5, (140, 140, 140), o1, 1), Player(width/2 + ROOMSIZE/5, height/2 - ROOMSIZE/5, (255, 140, 255), o1, 1)]
-#players = [Player(width/2 - ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (255, 255, 140), 0), Player(width/2 + ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (140, 140, 255), o1, 1),Player(width/2 - ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (255, 140, 140), o1, 1), Player(width/2 + ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (140, 255, 140), o1, 1)]
-#players = [Player(width/2 - ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (255, 255, 140), 0), Player(width/2 + ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (140, 140, 255), o1, 1)]
-
-#players = [Player(width/2 - ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (255, 255, 140), o1), Player(width/2 + ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, (140, 140, 255), o1+1),Player(width/2 - ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (255, 140, 140), o1+2), Player(width/2 + ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, (140, 255, 140), o1+3), Player(width/2 - ROOMSIZE/5, height/2 - ROOMSIZE/5, (140, 140, 140), o1+4), Player(width/2 + ROOMSIZE/5, height/2 - ROOMSIZE/5, (255, 140, 255), o1+5)]
 
 WAITUNTILONE = False
 PERMANENTMATCH = False
@@ -1951,13 +1943,7 @@ PERMANENTMATCH = False
 arrows = []
 blocks = []
 
-#colors = [(255, 140, 140),(140, 255, 140),(140, 140, 255),(255, 255, 140)]
-posxes = [width/2 - ROOMSIZE/2.5, width/2 + ROOMSIZE/2.5, width/2 - ROOMSIZE/2.5, width/2 + ROOMSIZE/2.5]
-posyes = [height/2 - ROOMSIZE/2.5, height/2 - ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5, height/2 + ROOMSIZE/2.5]
-
 sp = deepcopy(players)
-
-bullets = []
 
 particles = []
 
@@ -1980,6 +1966,7 @@ while launched == True:
 	pygame.display.flip()
 	clock.tick(fps)
 
+### 本編
 while running == True:
 	now = pygame.time.get_ticks()
 	for event in pygame.event.get():
@@ -1999,16 +1986,20 @@ while running == True:
 					for i in range(5):
 						arrows += [Arrow(players[0].x, players[0].y, -math.cos(angle) * 12 + random.gauss(0, 0.3), -math.sin(angle) * 12 + random.gauss(0, 0.3), 2, 0, 0, 1)]
 
+	# 背景は白
 	screen.fill(WHITE)
 
+	# 外側の枠を描く
 	pygame.draw.rect(screen, BLACK, ((width-ROOMSIZE)/2, (height-ROOMSIZE)/2, ROOMSIZE, ROOMSIZE), 6)
 
+	# ツルハシで壊されたときは描画しない
 	if nowall > 0:
 		if nowall == 1: pygame.draw.rect(screen, WHITE, ((width-ROOMSIZE)/2, (height-ROOMSIZE)/2, 8, ROOMSIZE), 6)
 		if nowall == 2: pygame.draw.rect(screen, WHITE, ((width-ROOMSIZE)/2 + ROOMSIZE - 8, (height-ROOMSIZE)/2, 8, ROOMSIZE), 6)
 		nowallt -= 1
 		if nowallt <= 0: nowall = 0
 
+	# パーティクルのティック処理
 	for i in particles:
 		if i.size <= 0:
 			particles.remove(i)
@@ -2016,15 +2007,16 @@ while running == True:
 			i.update()
 			i.draw()
 
+	# 矢のティック処理
 	for i in arrows:
 		i.move()
 		i.draw()
 
+	# ブロックのティック処理？
 	for i in blocks:
 		i.move()
 		i.draw()
 
-	alive = 0
 	onlydupli = 1
 	teams = -2
 	onlyteam = 1
@@ -2065,6 +2057,7 @@ while running == True:
 		players[0].show2 = " - "
 		players[1].show2 = " - "
 
+	# プレイヤーごとに表示される文字列
 	str1 = f"{players[0].show1}{players[0].show2} {players[0].show3}"
 	str2 = f"{players[1].show1}{players[1].show2} {players[1].show3}"
 
@@ -2074,20 +2067,19 @@ while running == True:
 	screen.blit(font.render(str2, True, (0, 0, 0)), (width-100 - font.render(str2, True, (0, 0, 0)).get_rect().width + random.randint(-2, 2) * (players[1].show2 != players[1].show2o and players[1].type != 14), 64))
 	screen.blit(font.render(f"{wins[0]}-{wins[1]}", True, (0, 0, 0)), (32, 16))
 
+	# 試合のタイプ（決勝、準決勝など）を表示
+	gameround_text = ""
 	if len(tournament) > 8:
-		screen.blit(font.render("Preliminary", True, (0, 0, 0)), (width/2 - font.render("Preliminary", True, (0, 0, 0)).get_rect().width / 2, 16))
-		pointadd = 0
+		gameround_text = "Preliminary"
 	elif len(tournament) > 4:
-		screen.blit(font.render("Quarterfinals", True, (0, 0, 0)), (width/2 - font.render("Quarterfinals", True, (0, 0, 0)).get_rect().width / 2, 16))
-		pointadd = 3
+		gameround_text = "Quarterfinals"
 	elif len(tournament) > 2:
-		screen.blit(font.render("Semifinals", True, (0, 0, 0)), (width/2 - font.render("Semifinals", True, (0, 0, 0)).get_rect().width / 2, 16))
-		pointadd = 9
+		gameround_text = "Semifinals"
 	else:
-		screen.blit(font.render("Finals", True, (0, 0, 0)), (width/2 - font.render("Finals", True, (0, 0, 0)).get_rect().width / 2, 16))
-		pointadd = 20
+		gameround_text = "Finals"
+	screen.blit(font.render(gameround_text, True, (0, 0, 0)), (width/2 - font.render(gameround_text, True, (0, 0, 0)).get_rect().width / 2, 16))
 
-	pygame.display.flip()
+	pygame.display.flip() # 画面を更新（描画）
 	clock.tick(fps)
 
 	if start > 0: start -= 1
@@ -2163,9 +2155,6 @@ while running == True:
 					while -1 in tournament:
 						tournament.remove(-1)
 					mark = 0
-					for i in range(15):
-						if (i+1) in tournament:
-							point[i] = pointadd
 					print(tournament)
 				if len(tournament) <= 1:
 					finished = 1
