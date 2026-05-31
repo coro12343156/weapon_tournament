@@ -1838,8 +1838,6 @@ RHITE = (255, 150, 150)
 BHITE = (150, 150, 255)
 BLACK = (0, 0, 0)
 
-game_folder = os.path.dirname(__file__)
-audio_folder = os.path.join(os.path.dirname(__file__),"audio")
 
 pygame.init()
 pygame.mixer.init()
@@ -1848,51 +1846,10 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Battle Royale")
 clock = pygame.time.Clock()
 
-icon = pygame.image.load(os.path.join(game_folder, "icon.png"))
+from source import *
+
 pygame.display.set_icon(icon)
-
-font  = pygame.font.Font(os.path.join(game_folder, "x12y16pxMaruMonica.ttf"), 32)
-font2 = pygame.font.Font(os.path.join(game_folder, "x12y16pxMaruMonica.ttf"), 24)
-
-iron_sword = pygame.image.load(os.path.join(game_folder, "iron_sword.png"))
-iron_axe = pygame.image.load(os.path.join(game_folder, "iron_axe.png"))
-book = pygame.image.load(os.path.join(game_folder, "knowledge_book.png"))
-lava_bucket = pygame.image.load(os.path.join(game_folder, "lava_bucket.png"))
-iron_spear = pygame.image.load(os.path.join(game_folder, "iron_spear_in_hand.png"))
-darkness = pygame.image.load(os.path.join(game_folder, "darkness.png"))
-timer = pygame.image.load(os.path.join(game_folder, "clock_01.png"))
-mace = pygame.image.load(os.path.join(game_folder, "mace.png"))
-trident = pygame.image.load(os.path.join(game_folder, "trident.png"))
-tfish = pygame.image.load(os.path.join(game_folder, "tropical_fish.png"))
-iron_chain = pygame.image.load(os.path.join(game_folder, "iron_chain.png"))
-brick = pygame.image.load(os.path.join(game_folder, "brick.png"))
-cod = pygame.image.load(os.path.join(game_folder, "cod.png"))
-bow = pygame.image.load(os.path.join(game_folder, "bow.png"))
-cbow = pygame.image.load(os.path.join(game_folder, "crossbow.png"))
-tnt = pygame.image.load(os.path.join(game_folder, "tnt.png"))
-pickaxe = pygame.image.load(os.path.join(game_folder, "pickaxe.png"))
-anvil = pygame.image.load(os.path.join(game_folder, "anvil.png"))
-minecart = pygame.image.load(os.path.join(game_folder, "minecart.png"))
-lead = pygame.image.load(os.path.join(game_folder, "lead.png"))
-end_crystal = pygame.image.load(os.path.join(game_folder, "end_crystal.png"))
-beacon = pygame.image.load(os.path.join(game_folder, "beacon.png"))
 beacon.set_colorkey((255, 255, 255))
-dye = pygame.image.load(os.path.join(game_folder, "dye.png"))
-hoe = pygame.image.load(os.path.join(game_folder, "hoe.png"))
-bundle = pygame.image.load(os.path.join(game_folder, "bundle.png"))
-bundleopen = pygame.image.load(os.path.join(game_folder, "bundleopen.png"))
-ns = pygame.image.load(os.path.join(game_folder, "nether_star.png"))
-pufferfish = pygame.image.load(os.path.join(game_folder, "pufferfish.png"))
-elytra = pygame.image.load(os.path.join(game_folder, "elytra.png"))
-elytrab = pygame.image.load(os.path.join(game_folder, "elytrab.png"))
-egg = pygame.image.load(os.path.join(game_folder, "egg.png"))
-
-arrow = pygame.image.load(os.path.join(game_folder, "arrow.png"))
-barrier = pygame.image.load(os.path.join(game_folder, "barrier.png"))
-potion = pygame.image.load(os.path.join(game_folder, "potion.png"))
-
-gold = pygame.image.load(os.path.join(game_folder, "gold.png"))
-diamond = pygame.image.load(os.path.join(game_folder, "diamond.png"))
 
 # Step1_1
 
